@@ -25,6 +25,32 @@ main()
         	if(burst_time[j]<burst_time[pos])
             	pos=j;
     	}
+		wait_time[0]=0;            
+	for(i=1;i<n;i++)
+	{
+    	wait_time[i]=0;
+    	for(j=0;j<i;j++)
+        wait_time[i]+=burst_time[j];
+    	total+=wait_time[i];
+	}
+	avg_wait_time=(float)total/n; 
+	total=0;
+	printf("\nResults:---------------------\n");
+	printf("\nProcess\t    Burst Time    \tWaiting Time\tTurnaround Time");
+   	for(i=0;i<n;i++)
+   	{
+       turn_ard_time[i]=burst_time[i]+wait_time[i];     
+       total+=turn_ard_time[i];
+       printf("\np%d\t\t  %d\t\t    %d\t\t\t%d",pro[i],burst_time[i],wait_time[i],turn_ard_time[i]);
+   	}
+   	avg_turn_ard_time=(float)total/n;    
+   	printf("\n\nAvg Waiting Time=%f",avg_wait_time);
+   	printf("\nAvg Turnaround Time=%f\n",avg_turn_ard_time);
+   	fclose(text);
+   	return 0;
+
+}
+
     
     	temp=burst_time[i];
     	burst_time[i]=burst_time[pos];
